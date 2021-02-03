@@ -1,13 +1,17 @@
 import React from "react";
-import Dashboard from "./components/Dashboard";
-import SignIn from "./components/auth/SignIn"
-import NavBar from "./components/Navbar/NavBar"
-import { BrowserRouter } from "react-router-dom";
+import NavBar from "../src/components/Navbar/NavBar"
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+import SignIn from "./components/auth/SignIn";
+import SignUp from "./components/auth/SignUp"
 
 function App() {
   return (
     <BrowserRouter>
-      <SignIn />
+      <NavBar />
+      <Switch>
+        <Route path="/signIn" component={SignIn}/>
+        <Route path="/signUp" component={SignUp}/>
+      </Switch>
       
     </BrowserRouter>
   );

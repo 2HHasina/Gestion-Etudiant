@@ -11,7 +11,7 @@ const NavBar = () => {
         className={`navbar navbar-light navbar-expand-md ${styles["navigation-clean-button"]}`}
       >
         <Link to="/" className={`navbar-brand ${styles.navbarBrand}`}>
-          Home
+          Emploi
         </Link>
         <button
           className="navbar-toggler"
@@ -28,7 +28,7 @@ const NavBar = () => {
           className="collapse navbar-collapse justify-content-end"
           id="navbarMenu"
         >
-          <SignedInLinks />
+          {/* <SignedInLinks /> */}
           <SignedOutLinks />
         </div>
       </nav>

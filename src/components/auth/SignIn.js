@@ -24,8 +24,8 @@ class SignIn extends Component {
       <div className="content">
         <Form
           name="normal_login"
-          className="login-form"
-        onFinish={this.handleSubmit}
+          className="form formIn"
+          onFinish={this.handleSubmit}
         >
           <div className="icon">
             <i className="fas fa-user-lock"></i>
@@ -38,7 +38,6 @@ class SignIn extends Component {
                 message: "Please input your Email!",
               },
             ]}
-            onChange={this.handleChange}
           >
             <Input
               prefix={<UserOutlined className="site-form-item-icon" />}
@@ -67,17 +66,12 @@ class SignIn extends Component {
 
           <Form.Item>
             <Button
-              type="primary"
+              
               htmlType="submit"
               className="login-form-button"
             >
               Log in
             </Button>
-            <div className="link">
-              Or
-              <br />
-              <a href="">Register now!</a>
-            </div>
           </Form.Item>
         </Form>
       </div>

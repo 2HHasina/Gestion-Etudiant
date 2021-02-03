@@ -9,10 +9,9 @@
   padding: 0 0 20px;
   font-size: 80px;
   font-weight: bold;
-  color: #40a9ff;
+  color: #465765;
 }
-.content .login-form {
-  max-width: 320px;
+.content .form {
   width: 90%;
   margin: 0 auto;
   background-color: #ffffff;
@@ -24,8 +23,21 @@
 
 .login-form-button {
   width: 100%;
+  color: #ffffff;
+  background-color: #465765;
 }
 .link {
   padding: 10px 0;
   text-align: center;
+}
+
+.radio{
+padding-left: 90px;
+}
+
+.content .formIn {
+  max-width: 320px;
+}
+.content .formUp {
+  max-width: 650px;
 }

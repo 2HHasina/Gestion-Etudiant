@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Form, Input, Button } from "antd";
+import {PostUsers} from '../../store/actions/usersAction'
 
 const layout = {
   labelCol: {
@@ -24,9 +25,13 @@ const AddUser = (props) => {
   const [cin, setCin] = useState("");
   const [role, setRole] = useState(props.role);
 
-  const onSubmit = (values) => {
-    console.log(cin);
-    console.log(role);
+  const onSubmit = (e) => {
+    const user = {
+      cin: cin,
+      role: role
+    }
+    e.preventDefault()
+    props.PostUsers(user)
   };
 
   return (
@@ -67,4 +72,9 @@ const AddUser = (props) => {
   );
 };
 
+const mapDispatchToProps = (dispatch)=>{
+  return {
+    PostUsers : (user) => dispatch(PostUsers(user))
+  }
+}
 export default AddUser;

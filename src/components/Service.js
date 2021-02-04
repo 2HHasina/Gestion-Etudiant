@@ -65,7 +65,7 @@ const Service = () => {
               ]}>
         <Input.TextArea onChange={(e)=> setDesc(e.target.value)}/>
       </Form.Item>
-      <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
+      <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 4 }}>
         <Button type="primary" htmlType="submit">
           Submit
         </Button>

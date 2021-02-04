@@ -7,8 +7,7 @@ import { BrowserRouter } from "react-router-dom";
 function App() {
   return (
     <BrowserRouter>
-      <SignIn />
-      
+      <Dashboard />  
     </BrowserRouter>
   );
 }

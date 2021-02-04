@@ -6,12 +6,15 @@ import {
   MenuUnfoldOutlined,
   MenuFoldOutlined,
   UserOutlined,
-  VideoCameraOutlined,
-  UploadOutlined,
+  BarChartOutlined,
+  LogoutOutlined,
+  SolutionOutlined
 } from "@ant-design/icons";
 import { Link, Switch, Route } from "react-router-dom";
 import Home from "./Home";
 import Reporting from "./Reporting";
+import Service from "./Service";
+import Logout from "./Logout";
 
 const { Header, Sider, Content } = Layout;
 
@@ -34,11 +37,14 @@ class Dashboard extends Component {
             <Menu.Item key="1" icon={<UserOutlined />}>
               <Link to="/">Home</Link>
             </Menu.Item>
-            <Menu.Item key="2" icon={<VideoCameraOutlined />}>
+            <Menu.Item key="2" icon={<BarChartOutlined />}>
               <Link to="/reporting">Reporting</Link>
             </Menu.Item>
-            <Menu.Item key="3" icon={<UploadOutlined />}>
-              nav 3
+            <Menu.Item key="3" icon={<SolutionOutlined />}>
+              <Link to="/service">Service</Link>
+            </Menu.Item>
+            <Menu.Item key="4" icon={<LogoutOutlined />}>
+              <Link to="/logout">Log Out</Link>
             </Menu.Item>
           </Menu>
         </Sider>
@@ -63,6 +69,8 @@ class Dashboard extends Component {
             <Switch>
               <Route exact path="/" component={Home} />
               <Route path="/reporting" component={Reporting} />
+              <Route path="/service" component={Service} />
+              <Route path="/logout" component={Logout} />
             </Switch>
           </Content>
         </Layout>

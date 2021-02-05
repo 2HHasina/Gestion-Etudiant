@@ -173,7 +173,6 @@ class SignUp extends Component {
               onChange={this.handleChange}
               value={this.state.role}
             >
-              <Radio value="Admin">Admin</Radio>
               <Radio value="Prof">Professeur</Radio>
               <Radio value="Etudiant">Etudiant</Radio>
             </Radio.Group>

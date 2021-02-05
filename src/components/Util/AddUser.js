@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { Form, Input, Button } from "antd";
-import {PostUsers} from '../../store/actions/usersAction'
+import { Form, Input, Button, PageHeader } from "antd";
+import { PostUsers } from "../../store/actions/usersAction";
+import "../../style/Admin.css"
 
 const layout = {
   labelCol: {
@@ -23,19 +24,26 @@ const validateMessages = {
 
 const AddUser = (props) => {
   const [cin, setCin] = useState("");
-  const [role, setRole] = useState(props.role);
 
   const onSubmit = (e) => {
     const user = {
       cin: cin,
-      role: role
-    }
-    e.preventDefault()
-    props.PostUsers(user)
+      role: props.role,
+    };
+    e.preventDefault();
+    props.PostUsers(user);
   };
 
   return (
     <div>
+      <PageHeader
+        className="site-page-header"
+        //onBack={() => null}
+        title="AJOUTER"
+        subTitle={props.role}
+      />
+      <div className="container">
+
       <Form
         {...layout}
         name="nest-messages"
@@ -68,13 +76,14 @@ const AddUser = (props) => {
           </Button>
         </Form.Item>
       </Form>
+      </div>
     </div>
   );
 };
 
-const mapDispatchToProps = (dispatch)=>{
+const mapDispatchToProps = (dispatch) => {
   return {
-    PostUsers : (user) => dispatch(PostUsers(user))
-  }
-}
+    PostUsers: (user) => dispatch(PostUsers(user)),
+  };
+};
 export default AddUser;

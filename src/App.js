@@ -1,7 +1,7 @@
 import React from "react";
-import Dashboard from "./components/Dashboard";
-import SignIn from "./components/auth/SignIn"
-import NavBar from "./components/Navbar/NavBar"
+import "antd/dist/antd.css";
+import Dashboard from "./components/Etudiant/Dashboard";
+
 import { BrowserRouter } from "react-router-dom";
 
 function App() {

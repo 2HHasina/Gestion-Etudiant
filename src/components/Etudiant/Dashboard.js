@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import "../style/App.css";
-import "../style/index.css";
+import "../../style/index.css";
 import { Layout, Menu } from "antd";
 import {
   MenuUnfoldOutlined,

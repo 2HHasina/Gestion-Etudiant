@@ -92,8 +92,16 @@ class DashboardAdmin extends React.Component {
                 <Link to="/ajoutModule">Ajouter Module</Link>
               </Menu.Item>
             </SubMenu>
-            <SubMenu key="sub6" title="SERVICE">
-              <Menu.Item key="12">
+            <SubMenu key="sub6" title="COURS">
+              <Menu.Item key="13">
+                <Link to="/listCours">Liste des Cours</Link>
+              </Menu.Item>
+              <Menu.Item key="14">
+                <Link to="/ajoutCours">Ajouter Cours</Link>
+              </Menu.Item>
+            </SubMenu>
+            <SubMenu key="sub7" title="SERVICE">
+              <Menu.Item key="15">
                 <Link to="/listService">Liste des Service</Link>
               </Menu.Item>
             </SubMenu>

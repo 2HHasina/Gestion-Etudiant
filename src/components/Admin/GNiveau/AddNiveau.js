@@ -24,7 +24,7 @@ const validateMessages = {
 };
 
 const AddNiveau = () => {
-  const [niv, setNiv] = useState("");
+  const [libelle, setLibelle] = useState("");
   const [filiere, setFiliere] = useState([]);
   const [idFiliere, setIdFiliere] = useState(0);
 
@@ -49,7 +49,7 @@ const AddNiveau = () => {
 
   const onSubmit = (e) => {
     //e.preventDefault();
-    console.log(niv);
+    console.log(libelle);
     console.log(filiere);
     console.log(idFiliere);
   };
@@ -75,7 +75,7 @@ const AddNiveau = () => {
               },
             ]}
           >
-            <Input onChange={(e) => setNiv(e.target.value)} />
+            <Input onChange={(e) => setLibelle(e.target.value)} />
           </Form.Item>
           <Form.Item
             label="FILIERE"

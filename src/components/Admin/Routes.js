@@ -13,6 +13,8 @@ import ListSemestre from "./GSemestre/ListSemestre"
 import AddModule from "./GModule/AddModule"
 import ListModule from "./GModule/ListModule"
 import ListService from "./GService/ListService"
+import ListCours from "./GCours/ListCours"
+import AddCours from "./GCours/AddCours"
 
 
 const Routes = ()=>{
@@ -31,6 +33,8 @@ const Routes = ()=>{
             <Route path="/ajoutSemestre" component={AddSemestre}/>
             <Route path="/listModule" component={ListModule}/>
             <Route path="/ajoutModule" component={AddModule}/>
+            <Route path="/listCours" component={ListCours}/>
+            <Route path="/ajoutCours" component={AddCours}/>
             <Route path="/listService" component={ListService}/> 
         </Switch>
     )

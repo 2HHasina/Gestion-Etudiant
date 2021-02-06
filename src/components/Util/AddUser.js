@@ -26,12 +26,14 @@ const AddUser = (props) => {
   const [cin, setCin] = useState("");
 
   const onSubmit = (e) => {
-    const user = {
-      cin: cin,
-      role: props.role,
-    };
-    e.preventDefault();
-    props.PostUsers(user);
+    // const user = {
+    //   cin: cin,
+    //   role: props.role,
+    // };
+    //e.preventDefault();
+    //props.PostUsers(user);
+    console.log(cin)
+    console.log(props.role)
   };
 
   return (

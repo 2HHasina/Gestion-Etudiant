@@ -118,7 +118,7 @@ class TableUser extends Component {
           title: title[i],
           dataIndex: title[i].toLowerCase(),
           key: title[i].toLowerCase(),
-          width: "25%",
+          width: "30%",
           ...this.getColumnSearchProps(title[i].toLowerCase()),
         });
       }

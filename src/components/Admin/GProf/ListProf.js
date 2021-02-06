@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import TableAdd from "../../Util/TableUser";
-import TableUser from "../../Util/TableUser";
+import TableList from "../../Util/TableList";
 import { connect } from "react-redux";
 import {GetUsers} from "../../../store/actions/usersAction";
 
@@ -45,7 +44,7 @@ class ListProf extends Component {
   };
   render() {
     console.log(this.props.data);
-    return <TableUser title={title} data={this.state.data} />;
+    return <TableList title={title} data={this.state.data} />;
   }
 }
 

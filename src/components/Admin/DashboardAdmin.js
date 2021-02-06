@@ -31,7 +31,7 @@ class DashboardAdmin extends React.Component {
         <Sider trigger={null} collapsible collapsed={this.state.collapsed}>
           <div className="logo">
           <i class="fas fa-home fa-2x"></i>
-            { this.state.collapsed ? '': 'DASHBOARD'}
+            { this.state.collapsed ? '': 'ADMIN'}
           </div>
           <Menu theme="dark" mode="inline" defaultSelectedKeys={["1"]}>
             <SubMenu

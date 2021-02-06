@@ -1,73 +1,55 @@
 import React, { Component } from "react";
-import TableAdd from "../../Util/TableAdd";
+import TableAdd from "../../Util/TableUser";
+import TableUser from "../../Util/TableUser";
+import { connect } from "react-redux";
+import {GetUsers} from '../../../store/actions/usersAction'
 
-const columns = [
-  {
-    title: "CIN",
-    dataIndex: "cin",
-    key: "cin",
-    width: "30%",
-    ...this.getColumnSearchProps("cin"),
-  },
-  {
-    title: "Nom",
-    dataIndex: "nom",
-    key: "nom",
-    width: "30%",
-    ...this.getColumnSearchProps("nom"),
-  },
-  {
-    title: "Prenom",
-    dataIndex: "prenom",
-    key: "prenom",
-    width: "20%",
-    ...this.getColumnSearchProps("prenom"),
-  },
-  {
-    title: "Email",
-    dataIndex: "email",
-    key: "email",
-    ...this.getColumnSearchProps("email"),
-  },
-  {
-    title: "Action",
-    dataIndex: "",
-    key: "x",
-    render: () => <DeleteTwoTone twoToneColor="#eb2f96" />,
-  },
-];
+
+const title = ["CIN","Nom","Prenom","Email"]
+
 class ListEtudiant extends Component {
+  componentDidMount(){
+    this.props.GetUsers()
+  }
+
   state = {
     data: [
       {
         key: "1",
-        name: "John Brown",
-        age: 32,
-        address: "New York No. 1 Lake Park",
+        cin: "IB000",
+        nom: "Anbari",
+        prenom: "Amine",
+        email: "amineanbari122@gmail.com",
       },
       {
         key: "2",
-        name: "Joe Black",
-        age: 42,
-        address: "London No. 1 Lake Park",
+        cin: "IB111",
+        nom: "Anbari",
+        prenom: "Amine",
+        email: "amineanbari122@gmail.com",
       },
       {
         key: "3",
-        name: "Jim Green",
-        age: 32,
-        address: "Sidney No. 1 Lake Park",
+        cin: "IB222",
+        nom: "Anbari",
+        prenom: "Amine",
+        email: "amineanbari122@gmail.com",
       },
       {
         key: "4",
-        name: "Jim Red",
-        age: 32,
-        address: "London No. 2 Lake Park",
+        cin: "IB333",
+        nom: "Anbari",
+        prenom: "Amine",
+        email: "amineanbari122@gmail.com",
       },
     ],
   };
   render() {
-    return <TableAdd columns={columns} data={this.state.data}/>;
+    console.log(this.props.data)
+    return <TableUser title={title} data={this.state.data} />;
   }
 }
 
-export default ListEtudiant;
+const mapStateToProps = (state) => ({data:state.users})
+
+export default connect(mapStateToProps, {GetUsers})(ListEtudiant);

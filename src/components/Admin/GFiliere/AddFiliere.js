@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Form, Input, Button, PageHeader } from "antd";
 //import { PostUsers } from "../../store/actions/usersAction";
-import "../../style/Admin.css"
+import "../../../style/Admin.css"
 
 const layout = {
   labelCol: {

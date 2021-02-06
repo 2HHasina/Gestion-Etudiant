@@ -1,40 +1,13 @@
-import React,{Component} from "react";
+import React, { Component } from "react";
 import "antd/dist/antd.css";
 import { Table, Input, Button, Space } from "antd";
 import Highlighter from "react-highlight-words";
-import { SearchOutlined } from "@ant-design/icons";
+import { SearchOutlined, DeleteTwoTone } from "@ant-design/icons";
 
-const data = [
-  {
-    key: "1",
-    name: "John Brown",
-    age: 32,
-    address: "New York No. 1 Lake Park"
-  },
-  {
-    key: "2",
-    name: "Joe Black",
-    age: 42,
-    address: "London No. 1 Lake Park"
-  },
-  {
-    key: "3",
-    name: "Jim Green",
-    age: 32,
-    address: "Sidney No. 1 Lake Park"
-  },
-  {
-    key: "4",
-    name: "Jim Red",
-    age: 32,
-    address: "London No. 2 Lake Park"
-  }
-];
-
-class TableAdd extends Component {
+class TableUser extends Component {
   state = {
     searchText: "",
-    searchedColumn: ""
+    searchedColumn: "",
   };
 
   getColumnSearchProps = (dataIndex) => ({
@@ -42,7 +15,7 @@ class TableAdd extends Component {
       setSelectedKeys,
       selectedKeys,
       confirm,
-      clearFilters
+      clearFilters,
     }) => (
       <div style={{ padding: 8 }}>
         <Input
@@ -83,7 +56,7 @@ class TableAdd extends Component {
               confirm({ closeDropdown: false });
               this.setState({
                 searchText: selectedKeys[0],
-                searchedColumn: dataIndex
+                searchedColumn: dataIndex,
               });
             }}
           >
@@ -117,14 +90,14 @@ class TableAdd extends Component {
         />
       ) : (
         text
-      )
+      ),
   });
 
   handleSearch = (selectedKeys, confirm, dataIndex) => {
     confirm();
     this.setState({
       searchText: selectedKeys[0],
-      searchedColumn: dataIndex
+      searchedColumn: dataIndex,
     });
   };
 
@@ -133,31 +106,47 @@ class TableAdd extends Component {
     this.setState({ searchText: "" });
   };
 
+  handleClick = (key) => {
+    console.log(key);
+  };
   render() {
-    const columns = [
-      {
-        title: "Name",
-        dataIndex: "name",
-        key: "name",
-        width: "30%",
-        ...this.getColumnSearchProps("name")
-      },
-      {
-        title: "Age",
-        dataIndex: "age",
-        key: "age",
-        width: "20%",
-        ...this.getColumnSearchProps("age")
-      },
-      {
-        title: "Address",
-        dataIndex: "address",
-        key: "address",
-        ...this.getColumnSearchProps("address")
+    const { title, data } = this.props;
+    const columns = () => {
+      let columns = [];
+      for (let i = 0; i < title.length; i++) {
+        columns.push({
+          title: title[i],
+          dataIndex: title[i].toLowerCase(),
+          key: title[i].toLowerCase(),
+          width: "25%",
+          ...this.getColumnSearchProps(title[i].toLowerCase()),
+        });
       }
-    ];
-    return <Table columns={columns} dataSource={data} />;
+      columns.push({
+        title: "Action",
+        dataIndex: "",
+        key: "x",
+        render: (record) => {
+          return (
+            <Button
+              type="text"
+              danger
+              onClick={(e) => this.handleClick(record.key)}
+            >
+              <DeleteTwoTone
+                style={{ fontSize: "20px" }}
+                twoToneColor="#eb2f96"
+              />
+            </Button>
+          );
+        },
+      });
+      return columns;
+    };
+    console.log(columns());
+    console.log(data);
+    return <Table columns={columns()} dataSource={data} />;
   }
 }
 
-export default TableAdd
+export default TableUser;

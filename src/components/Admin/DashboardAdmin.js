@@ -7,6 +7,8 @@ import {
   MenuFoldOutlined,
   UsergroupAddOutlined,
   SettingOutlined,
+  BookOutlined,
+  SolutionOutlined
 } from "@ant-design/icons";
 import SubMenu from "antd/lib/menu/SubMenu";
 import { Link } from "react-router-dom";
@@ -68,7 +70,7 @@ class DashboardAdmin extends React.Component {
                 <Link to="/ajoutFiliere">Ajouter Filiere</Link>
               </Menu.Item>
             </SubMenu>
-            <SubMenu key="sub3" title="NIVEAU">
+            <SubMenu icon={<SettingOutlined />} key="sub3" title="NIVEAU">
               <Menu.Item key="7">
                 <Link to="/listNv">Liste des Niveau</Link>
               </Menu.Item>
@@ -76,7 +78,7 @@ class DashboardAdmin extends React.Component {
                 <Link to="/ajoutNv">Ajouter Niveau</Link>
               </Menu.Item>
             </SubMenu>
-            <SubMenu key="sub4" title="SEMESTRE">
+            <SubMenu icon={<SettingOutlined />} key="sub4" title="SEMESTRE">
               <Menu.Item key="9">
                 <Link to="/listSemestre">Liste des Semestre</Link>
               </Menu.Item>
@@ -84,7 +86,7 @@ class DashboardAdmin extends React.Component {
                 <Link to="/ajoutSemestre">Ajouter Semestre</Link>
               </Menu.Item>
             </SubMenu>
-            <SubMenu key="sub5" title="MODULE">
+            <SubMenu icon={<SettingOutlined />} key="sub5" title="MODULE">
               <Menu.Item key="11">
                 <Link to="/listModule">Liste des Modules</Link>
               </Menu.Item>
@@ -92,7 +94,7 @@ class DashboardAdmin extends React.Component {
                 <Link to="/ajoutModule">Ajouter Module</Link>
               </Menu.Item>
             </SubMenu>
-            <SubMenu key="sub6" title="COURS">
+            <SubMenu icon={<BookOutlined />} key="sub6" title="COURS">
               <Menu.Item key="13">
                 <Link to="/listCours">Liste des Cours</Link>
               </Menu.Item>
@@ -100,7 +102,7 @@ class DashboardAdmin extends React.Component {
                 <Link to="/ajoutCours">Ajouter Cours</Link>
               </Menu.Item>
             </SubMenu>
-            <SubMenu key="sub7" title="SERVICE">
+            <SubMenu icon={<SolutionOutlined />} key="sub7" title="SERVICE">
               <Menu.Item key="15">
                 <Link to="/listService">Liste des Service</Link>
               </Menu.Item>

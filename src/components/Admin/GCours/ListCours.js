@@ -21,7 +21,7 @@ class ListCours extends Component {
   componentDidMount() {}
 
   render() {
-    return <TableList title={title} data={this.state.data} />;
+    return <TableList type="COURS" title={title} data={this.state.data} />;
   }
 }
 

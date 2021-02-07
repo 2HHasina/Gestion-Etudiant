@@ -34,7 +34,7 @@ class ListFiliere extends Component {
     ],
   };
   render() {
-    return <TableList title={title} data={this.state.data} />;
+    return <TableList type="FILIERE" title={title} data={this.state.data} />;
   }
 }
 

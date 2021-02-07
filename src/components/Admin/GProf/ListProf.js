@@ -44,7 +44,7 @@ class ListProf extends Component {
   };
   render() {
     console.log(this.props.data);
-    return <TableList title={title} data={this.state.data} />;
+    return <TableList type="USER" title={title} data={this.state.data} />;
   }
 }
 

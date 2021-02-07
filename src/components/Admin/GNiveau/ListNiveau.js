@@ -21,7 +21,7 @@ class ListNiveau extends Component {
     ],
   };
   render() {
-    return <TableList title={title} data={this.state.data} />;
+    return <TableList type="NIVEAU" title={title} data={this.state.data} />;
   }
 }
 

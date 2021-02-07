@@ -2,7 +2,13 @@ import React, { Component } from "react";
 import "antd/dist/antd.css";
 import { Table, Input, Button, Space } from "antd";
 import Highlighter from "react-highlight-words";
-import { SearchOutlined, DeleteTwoTone } from "@ant-design/icons";
+import {
+  SearchOutlined,
+  DeleteTwoTone,
+  CloudDownloadOutlined,
+} from "@ant-design/icons";
+import { saveAs } from "file-saver";
+import axios from "axios";
 
 class TableUser extends Component {
   state = {
@@ -109,8 +115,20 @@ class TableUser extends Component {
   handleClick = (key) => {
     console.log(key);
   };
+  fileDownload = async () => {
+    return axios
+      .get("https://assets.filestackapi.com/watermark.png", {
+        responseType: "blob",
+      })
+      .then((response) => {
+        return new Blob([response.body], { type: ".png" });
+      });
+  };
+  handleDownload = (fileName) => {
+    this.fileDownload().then((blob) => saveAs(blob, fileName));
+  };
   render() {
-    const { title, data } = this.props;
+    const { title, data, type } = this.props;
     const columns = () => {
       let columns = [];
       for (let i = 0; i < title.length; i++) {
@@ -122,6 +140,22 @@ class TableUser extends Component {
           ...this.getColumnSearchProps(title[i].toLowerCase()),
         });
       }
+      if (type === "COURS")
+        columns.push({
+          title: "Download",
+          dataIndex: "",
+          key: "y",
+          render: (record) => {
+            return (
+              <Button
+                type="primary"
+                onClick={(e) => this.handleDownload(record.cours)}
+              >
+                <CloudDownloadOutlined style={{ fontSize: "20px" }} />
+              </Button>
+            );
+          },
+        });
       columns.push({
         title: "Action",
         dataIndex: "",

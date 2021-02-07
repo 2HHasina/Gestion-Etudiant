@@ -5,7 +5,7 @@ class AddEtudiant extends Component {
   render() {
     return (
       <div>
-        <AddUser role={"ETUDIANT"} />
+        <AddUser label="CIN" type="USER" role="ETUDIANT" />
       </div>
     );
   }

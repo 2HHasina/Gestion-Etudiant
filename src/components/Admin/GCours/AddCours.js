@@ -54,12 +54,8 @@ const AddCours = () => {
   const [idModule, setIdModule] = useState(0);
   const [libelle, setLibelle] = useState("");
   const [file, setFile] = useState(null);
-  const [listFile, setListFile] = useState([]);
 
   const onSubmit = async (e) => {
-    console.log(libelle);
-    console.log(file);
-    console.log(idModule);
     const Cours = {
       libelle: libelle,
       Module: idModule,
@@ -67,26 +63,14 @@ const AddCours = () => {
     };
     let formData = new FormData();
     formData.append("cours", file);
-    const res = await axios
-      .post("http://localhost:4000/file", formData)
-      .then((res) => res.data);
-    alert(JSON.stringify(res));
+    const res = await axios({
+      method: "post",
+      url: "http://localhost:4000/file",
+      data: formData,
+    }).then((res) => res.data);
   };
-  const onChange = (info) => {
-    console.log(info);
-    switch (info.file.status) {
-      case "uploading":
-        setListFile([info.file]);
-        break;
-      case "done":
-        setFile(info.file);
-        setListFile([info.file]);
-        break;
-      default:
-        // error or removed
-        setFile(null);
-        setListFile([]);
-    }
+  const onChange = (e) => {
+    setFile(e.target.files[0]);
   };
   useEffect(async () => {
     // const data = await axios.get(URL_Filiere);
@@ -123,6 +107,7 @@ const AddCours = () => {
         >
           <Form.Item
             label="MODULE"
+            name="module"
             rules={[
               {
                 required: true,
@@ -140,7 +125,8 @@ const AddCours = () => {
             />
           </Form.Item>
           <Form.Item
-            label="Cours"
+            label="COURS"
+            name="cours"
             rules={[
               {
                 required: true,
@@ -149,10 +135,15 @@ const AddCours = () => {
           >
             <Input onChange={(e) => setLibelle(e.target.value)} />
           </Form.Item>
-          <Form.Item rules={[{ required: true }]}>
-            <Dragger
+          <Form.Item
+            name="file"
+            rules={[{ required: true,message:"File is required !" }]}
+            wrapperCol={{ ...layout.wrapperCol, offset: 4 }}
+          >
+            {/*<Dragger
               fileList={listFile}
               customRequest={dummyRequest}
+              name="file"
               onChange={onChange}
             >
               <p className="ant-upload-drag-icon">
@@ -161,7 +152,12 @@ const AddCours = () => {
               <p className="ant-upload-text">
                 Click or drag file to this area to upload
               </p>
-            </Dragger>
+            </Dragger> */}
+              <input
+                type="file"
+                name="file"
+                onChange={onChange}
+              />
           </Form.Item>
           <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 4 }}>
             <Button type="primary" htmlType="submit">

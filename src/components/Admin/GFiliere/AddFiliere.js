@@ -47,6 +47,7 @@ const AddFiliere = () => {
       >
         <Form.Item
           label="Filiere"
+          name="filiere"
           rules={[
             {
               required: true,

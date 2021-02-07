@@ -5,7 +5,7 @@ class AddProf extends Component {
 
     render() {
         return (
-            <AddUser role={'PROFESSEUR'}/>
+            <AddUser label="CIN" type="USER" role={'PROFESSEUR'}/>
         )
     }
 }

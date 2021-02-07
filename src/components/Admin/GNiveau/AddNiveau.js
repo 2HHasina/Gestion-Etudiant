@@ -69,6 +69,7 @@ const AddNiveau = () => {
         >
           <Form.Item
             label="NIVEAU"
+            name="niveau"
             rules={[
               {
                 required: true,
@@ -79,6 +80,7 @@ const AddNiveau = () => {
           </Form.Item>
           <Form.Item
             label="FILIERE"
+            name="filiere"
             rules={[
               {
                 required: true,

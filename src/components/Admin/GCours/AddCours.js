@@ -1,27 +1,33 @@
-import React, { useState,useEffect } from "react";
-import 'antd/dist/antd.css';
-import { Form, Input, Button, PageHeader,Upload, message, Select } from "antd";
-import { InboxOutlined } from '@ant-design/icons';
-import "../../../style/Admin.css"
+import React, { useState, useEffect } from "react";
+import "antd/dist/antd.css";
+import { Form, Input, Button, PageHeader, Upload, message, Select } from "antd";
+import { InboxOutlined } from "@ant-design/icons";
+import "../../../style/Admin.css";
+import axios from "axios";
 
 const { Dragger } = Upload;
-const props = {
-    name: 'file',
-    multiple: false,
-    action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
-    onChange(info) {
-        console.log(info)
-      const { status } = info.file;
-      if (status !== 'uploading') {
-        console.log(info.file, info.fileList);
-      }
-      if (status === 'done') {
-        message.success(`${info.file.name} file uploaded successfully.`);
-      } else if (status === 'error') {
-        message.error(`${info.file.name} file upload failed.`);
-      }
-    },
-  };
+const dummyRequest = ({ file, onSuccess }) => {
+  setTimeout(() => {
+    onSuccess("ok");
+  }, 0);
+};
+// const props = {
+//   name: "file",
+//   multiple: false,
+//   //action: "http://localhost:4000/file/",
+//   onChange(info) {
+//     fileUploaded = info.file;
+//     //const { status } = info.file;
+//     // if (status !== "uploading") {
+//     //   console.log(info.file, info.fileList);
+//     // }
+//     // if (status === "done") {
+//     //   message.success(`${info.file.name} file uploaded successfully.`);
+//     // } else if (status === "error") {
+//     //   message.error(`${info.file.name} file upload failed.`);
+//     // }
+//   },
+// };
 
 const layout = {
   labelCol: {
@@ -46,13 +52,42 @@ const validateMessages = {
 const AddCours = () => {
   const [module, setModule] = useState([]);
   const [idModule, setIdModule] = useState(0);
-  const [libelle, setLibelle] = useState(0);
+  const [libelle, setLibelle] = useState("");
+  const [file, setFile] = useState(null);
+  const [listFile, setListFile] = useState([]);
 
-  const onSubmit = (e) => {
-    e.preventDefault();
-    console.log(libelle)
+  const onSubmit = async (e) => {
+    console.log(libelle);
+    console.log(file);
+    console.log(idModule);
+    const Cours = {
+      libelle: libelle,
+      Module: idModule,
+      file: file,
+    };
+    let formData = new FormData();
+    formData.append("cours", file);
+    const res = await axios
+      .post("http://localhost:4000/file", formData)
+      .then((res) => res.data);
+    alert(JSON.stringify(res));
   };
-
+  const onChange = (info) => {
+    console.log(info);
+    switch (info.file.status) {
+      case "uploading":
+        setListFile([info.file]);
+        break;
+      case "done":
+        setFile(info.file);
+        setListFile([info.file]);
+        break;
+      default:
+        // error or removed
+        setFile(null);
+        setListFile([]);
+    }
+  };
   useEffect(async () => {
     // const data = await axios.get(URL_Filiere);
     const data = [
@@ -77,16 +112,15 @@ const AddCours = () => {
       <PageHeader
         className="site-page-header"
         title="AJOUTER"
-        subTitle='COURS'
+        subTitle="COURS"
       />
       <div className="container">
-
-      <Form
-        {...layout}
-        name="nest-messages"
-        onFinish={onSubmit}
-        validateMessages={validateMessages}
-      >
+        <Form
+          {...layout}
+          name="nest-messages"
+          onFinish={onSubmit}
+          validateMessages={validateMessages}
+        >
           <Form.Item
             label="MODULE"
             rules={[
@@ -105,31 +139,36 @@ const AddCours = () => {
               }
             />
           </Form.Item>
-        <Form.Item
-          label="Cours"
-          rules={[
-            {
-              required: true,
-            },
-          ]}
-        >
-          <Input onChange={(e) => setLibelle(e.target.value)} />
-        </Form.Item>
-        <Form.Item rules={[{required: true}]}>
-        <Dragger {...props}>
-                <p className="ant-upload-drag-icon">
+          <Form.Item
+            label="Cours"
+            rules={[
+              {
+                required: true,
+              },
+            ]}
+          >
+            <Input onChange={(e) => setLibelle(e.target.value)} />
+          </Form.Item>
+          <Form.Item rules={[{ required: true }]}>
+            <Dragger
+              fileList={listFile}
+              customRequest={dummyRequest}
+              onChange={onChange}
+            >
+              <p className="ant-upload-drag-icon">
                 <InboxOutlined />
-                </p>
-                <p className="ant-upload-text">Click or drag file to this area to upload</p>
-                
-            </Dragger>,
-        </Form.Item>
-        <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 4 }}>
-          <Button type="primary" htmlType="submit">
-            Ajouter
-          </Button>
-        </Form.Item>
-      </Form>
+              </p>
+              <p className="ant-upload-text">
+                Click or drag file to this area to upload
+              </p>
+            </Dragger>
+          </Form.Item>
+          <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 4 }}>
+            <Button type="primary" htmlType="submit">
+              Ajouter
+            </Button>
+          </Form.Item>
+        </Form>
       </div>
     </div>
   );

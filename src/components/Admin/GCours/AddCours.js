@@ -55,7 +55,7 @@ const AddCours = () => {
   const [libelle, setLibelle] = useState("");
   const [file, setFile] = useState(null);
 
-  const onSubmit = async (e) => {
+  const onSubmit =  (e) => {
     const Cours = {
       libelle: libelle,
       Module: idModule,
@@ -63,7 +63,8 @@ const AddCours = () => {
     };
     let formData = new FormData();
     formData.append("cours", file);
-    const res = await axios({
+    formData.set('')
+    const res = axios({
       method: "post",
       url: "http://localhost:4000/file",
       data: formData,
@@ -74,21 +75,22 @@ const AddCours = () => {
   };
   useEffect(async () => {
     // const data = await axios.get(URL_Filiere);
-    const data = [
-      {
-        id: 1,
-        libelle: "BI",
+    const res = axios({
+      method: "get",
+      url: "http://10.30.238.242:8080/api/module/list",
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("token"),
       },
-      {
-        id: 2,
-        libelle: "Genie Logiciel",
-      },
-      {
-        id: 3,
-        libelle: "Securite",
-      },
-    ];
-    setModule(data);
+    })
+      .then((res) => {
+        console.log(res.status)
+        let tab = [];
+        res.data.map((elm) =>
+          tab.push({ id: elm.id, libelle: elm.libelle })
+        );
+        setModule(tab);
+      })
+      .catch((err) => console.log(err));
   }, []);
 
   return (

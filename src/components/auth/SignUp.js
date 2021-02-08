@@ -3,6 +3,7 @@ import "antd/dist/antd.css";
 import "../../style/Auth.css";
 import { Form, Input, Button, Radio } from "antd";
 import axios from "axios";
+import { withRouter } from "react-router-dom";
 
 const formItemLayout = {
   labelCol: {
@@ -35,7 +36,7 @@ const tailFormItemLayout = {
   },
 };
 
-const SignUp = () => {
+const SignUp = (props) => {
   const [form] = Form.useForm();
 
   const onFinish = async (values) => {
@@ -53,7 +54,7 @@ const SignUp = () => {
       url: "http://10.30.238.242:8080/api/users/signup",
       data: user,
     })
-      .then((res) => console.log(res.statusText))
+      .then((res) => props.history.push("/signin"))
       .catch((err) => console.log(err.response.data));
   };
 
@@ -188,4 +189,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default withRouter(SignUp);

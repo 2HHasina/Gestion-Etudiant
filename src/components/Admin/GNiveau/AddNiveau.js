@@ -45,6 +45,8 @@ const AddNiveau = () => {
 
   const onSubmit = (e) => {
     //e.preventDefault();
+    console.log(libelle);
+    console.log(idFiliere);
     const res = axios({
       method: "post",
       url: "http://10.30.238.242:8080/api/niveau/",

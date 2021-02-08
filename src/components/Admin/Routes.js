@@ -16,28 +16,34 @@ import ListModule from "./GModule/ListModule";
 import ListService from "./GService/ListService";
 import ListCours from "./GCours/ListCours";
 import AddCours from "./GCours/AddCours";
+import jwt_decode from 'jwt-decode'
 
 const Routes = () => {
-  return (
-    <Switch>
-      <Route exact path="/admin" component={Main} />
-      <Route path="/listEtd" component={ListEtudiant} />
-      <Route path="/ajoutEtd" component={AddEtudiant} />
-      <Route path="/ajoutProf" component={AddProf} />
-      <Route path="/listProf" component={ListProf} />
-      <Route path="/listFiliere" component={ListFiliere} />
-      <Route path="/ajoutFiliere" component={AddFiliere} />
-      <Route path="/listNv" component={ListNiveau} />
-      <Route path="/ajoutNv" component={AddNiveau} />
-      <Route path="/listSemestre" component={ListSemestre} />
-      <Route path="/ajoutSemestre" component={AddSemestre} />
-      <Route path="/listModule" component={ListModule} />
-      <Route path="/ajoutModule" component={AddModule} />
-      <Route path="/listCours" component={ListCours} />
-      <Route path="/ajoutCours" component={AddCours} />
-      <Route path="/listService" component={ListService} />
-    </Switch>
-  );
+  let decode = jwt_decode(localStorage.getItem("token"));
+  if (true) {
+    return (
+      <Switch>
+        <Route exact path="/admin" component={Main} />
+        <Route path="/admin/listEtd" component={ListEtudiant} />
+        <Route path="/admin/ajoutEtd" component={AddEtudiant} />
+        <Route path="/admin/ajoutProf" component={AddProf} />
+        <Route path="/admin/listProf" component={ListProf} />
+        <Route path="/admin/listFiliere" component={ListFiliere} />
+        <Route path="/admin/ajoutFiliere" component={AddFiliere} />
+        <Route path="/admin/listNv" component={ListNiveau} />
+        <Route path="/admin/ajoutNv" component={AddNiveau} />
+        <Route path="/admin/listSemestre" component={ListSemestre} />
+        <Route path="/admin/ajoutSemestre" component={AddSemestre} />
+        <Route path="/admin/listModule" component={ListModule} />
+        <Route path="/admin/ajoutModule" component={AddModule} />
+        <Route path="/admin/listCours" component={ListCours} />
+        <Route path="/admin/ajoutCours" component={AddCours} />
+        <Route path="/admin/listService" component={ListService} />
+      </Switch>
+    );
+  } else {
+    return null;
+  }
 };
 
 export default Routes;

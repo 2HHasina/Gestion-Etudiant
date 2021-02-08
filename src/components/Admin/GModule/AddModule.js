@@ -31,29 +31,50 @@ const AddModule = () => {
   const [idSem, setIdSem] = useState(0);
 
   useEffect(async () => {
-    // const data = await axios.get(URL_Filiere);
-    const data = [
-      {
-        id: 1,
-        libelle: "GI",
-      },
-      {
-        id: 2,
-        libelle: "GE",
-      },
-      {
-        id: 3,
-        libelle: "GRT",
-      },
-    ];
-    setSemestre(data);
-    setProf(data);
 
+    axios({
+      method: "get",
+      url: "http://10.30.238.242:8080/api/semester/list",
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    })
+      .then((res) => {
+        let tab = [];
+        console.log(res.data);
+        res.data.map((elm) => tab.push({ id: elm.id, libelle: elm.libelle }));
+        setSemestre(tab);
+      })
+      .catch((err) => console.log(err));
+    axios({
+      method: "get",
+      url: "http://10.30.238.242:8080/api/users/list/PROF",
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    })
+      .then((res) => {
+        let tab = [];
+        console.log(res.data);
+        res.data.map((elm) =>
+          tab.push({ id: elm.id, libelle: `${elm.lastName} ${elm.firstName}` })
+        );
+        setProf(tab);
+      })
+      .catch((err) => console.log(err));
   }, []);
 
   const onSubmit = (e) => {
-    //e.preventDefault();
-    
+    axios({
+      method: "post",
+      url: "http://10.30.238.242:8080/api/module/",
+      headers: { Authorization: "Bearer " + localStorage.getItem("token") },
+      data: {
+        libelle: libelle,
+        semester: idSem.toString(),
+        prof: idProf.toString()
+      },
+    });
   };
   return (
     <div>

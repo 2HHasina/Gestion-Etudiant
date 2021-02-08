@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Form, Input, Button, PageHeader, Select } from "antd";
 import { PostUsers } from "../../store/actions/usersAction";
 import "../../style/Admin.css";
+import axios from "axios";
 
 const layout = {
   labelCol: {
@@ -31,26 +32,47 @@ const AddUser = (props) => {
   const { type, label } = props;
 
   const onSubmit = (e) => {
-    console.log(cin)
-
+    if (type === "SEMESTRE") {
+      axios({
+        method: "post",
+        url: "http://10.30.238.242:8080/api/semester/",
+        headers: { Authorization: "Bearer " + localStorage.getItem("token") },
+        data: {
+          niveau: idNiveau.toString(),
+          libelle: semestre,
+        },
+      });
+    }
+    if (type === "USER") {
+      axios({
+        method: "post",
+        url: "http://10.30.238.242:8080/api/users/add",
+        headers: { Authorization: "Bearer " + localStorage.getItem("token") },
+        data: {
+          cin: cin,
+          idNiveau: idNiveau.toString(),
+          role: props.role,
+        },
+      });
+    }
   };
   useEffect(async () => {
-    // const data = await axios.get(URL_Filiere);
-    const data = [
-      {
-        id: 1,
-        libelle: "CP1",
+    const res = axios({
+      method: "get",
+      url: "http://10.30.238.242:8080/api/niveau/list",
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("token"),
       },
-      {
-        id: 2,
-        libelle: "3 eme annee GI",
-      },
-      {
-        id: 3,
-        libelle: "GRT",
-      },
-    ];
-    setNiveau(data);
+    })
+      .then((res) => {
+        let tab = [];
+        console.log(res.data);
+        res.data.map((elm) =>
+          tab.push({ id: elm.id, libelle: elm.descNiveau })
+        );
+        setNiveau(tab);
+      })
+      .catch((err) => console.log(err));
   }, []);
   const handleChange = (e) => {
     if (type === "USER") setCin(e.target.value);
@@ -82,10 +104,10 @@ const AddUser = (props) => {
           >
             <Input onChange={handleChange} />
           </Form.Item>
-          {(props.role === "ETUDIANT" || type === "SEMESTRE") && (
+          {(props.role === "STUDENT" || type === "SEMESTRE") && (
             <Form.Item
               label="NIVEAU"
-            name="niveau"
+              name="niveau"
               rules={[
                 {
                   required: true,
@@ -126,9 +148,4 @@ const AddUser = (props) => {
   );
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    PostUsers: (user) => dispatch(PostUsers(user)),
-  };
-};
 export default AddUser;

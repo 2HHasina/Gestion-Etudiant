@@ -4,7 +4,7 @@ import { Form, Input, Button } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import jwt_decode from "jwt-decode";
 import axios from "axios";
-import { Redirect } from "react-router-dom";
+import { Redirect, withRouter } from "react-router-dom";
 
 class SignIn extends Component {
   state = {
@@ -16,9 +16,9 @@ class SignIn extends Component {
     let decode = jwt_decode(localStorage.getItem("token"));
     console.log(decode);
     //if(decode.roles[0]==='*')
-    if (decode.roles[0] === "ADMIN") {
-      return <Redirect to="/admin" />;
-    }
+    if (decode.roles[0] === "ADMIN") this.props.history.push('/admin');
+    if (decode.roles[0] === "PROF") this.props.history.push('/prof');
+    if (decode.roles[0] === "STUDENT") this.props.history.push('/student');
   };
 
   handleChange = (e) => {
@@ -27,14 +27,17 @@ class SignIn extends Component {
     });
   };
   handleSubmit = async (e) => {
-    e.preventDefault();
+    console.log(this.state)
     const res = await axios({
       method: "post",
       url: "http://10.30.238.242:8080/api/users/login",
-      data: this.state,
+      data: {
+        email: this.state.email,
+        password: this.state.password
+      },
     })
       .then((res) => this.handleLogin(res))
-      .catch((err) => console.log(err.response.data));
+      .catch((err) => console.log(err));
   };
 
   render() {
@@ -103,4 +106,4 @@ class SignIn extends Component {
   }
 }
 
-export default SignIn;
+export default withRouter(SignIn);

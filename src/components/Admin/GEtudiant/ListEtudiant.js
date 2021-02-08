@@ -1,54 +1,43 @@
 import React, { Component } from "react";
 import TableList from "../../Util/TableList";
-import { connect } from "react-redux";
-import {GetUsers} from '../../../store/actions/usersAction'
 
+import axios from "axios";
 
-const title = ["CIN","Nom","Prenom","Email"]
+const title = ["CIN", "Nom", "Prenom", "Email"];
 
 class ListEtudiant extends Component {
-  componentDidMount(){
-    this.props.GetUsers()
-  }
-
   state = {
-    data: [
-      {
-        key: "1",
-        cin: "IB000",
-        nom: "Anbari",
-        prenom: "Amine",
-        email: "amineanbari122@gmail.com",
-      },
-      {
-        key: "2",
-        cin: "IB111",
-        nom: "Anbari",
-        prenom: "Amine",
-        email: "amineanbari122@gmail.com",
-      },
-      {
-        key: "3",
-        cin: "IB222",
-        nom: "Anbari",
-        prenom: "Amine",
-        email: "amineanbari122@gmail.com",
-      },
-      {
-        key: "4",
-        cin: "IB333",
-        nom: "Anbari",
-        prenom: "Amine",
-        email: "amineanbari122@gmail.com",
-      },
-    ],
+    data: [],
   };
+  componentDidMount() {
+    const res = axios({
+      method: "get",
+      url: "http://10.30.238.242:8080/api/users/list/STUDENT",
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    })
+      .then((res) =>
+        res.data.map((elm) =>
+          this.setState({
+            data: [
+              ...this.state.data,
+              {
+                cin: elm.cin,
+                nom: elm.lastName,
+                prenom: elm.firstName,
+                email: elm.email,
+              },
+            ],
+          })
+        )
+      )
+      .catch((err) => console.log(err));
+  }
   render() {
-    console.log(this.props.data)
+    console.log(this.props.data);
     return <TableList type="USER" title={title} data={this.state.data} />;
   }
 }
 
-const mapStateToProps = (state) => ({data:state.users})
-
-export default connect(mapStateToProps, {GetUsers})(ListEtudiant);
+export default ListEtudiant;

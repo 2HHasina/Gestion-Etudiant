@@ -1,38 +1,31 @@
 import React, { Component } from "react";
 import TableList from "../../Util/TableList";
+import axios from "axios";
 
 const title = ["ID", "Module"];
 
 class ListModule extends Component {
-  componentDidMount() {}
-
+  
   state = {
-    data: [
-      {
-        key: "1",
-        id: "1",
-        module: "Genie Informatique",
-      },
-      {
-        key: "2",
-        id: "2",
-
-        module: "Genie Electrique",
-      },
-      {
-        key: "3",
-        id: "3",
-
-        module: "Genie Reseau",
-      },
-      {
-        key: "4",
-        id: "4",
-
-        module: "GIID",
-      },
-    ],
+    data: [],
   };
+  componentDidMount() {
+    const res = axios({
+      method: "get",
+      url: "http://10.30.238.242:8080/api/module/list",
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    })
+      .then((res) =>
+        res.data.map((elm) =>
+          this.setState({
+            data: [...this.state.data, { id: elm.id, filiere: elm.libelle }],
+          })
+        )
+      )
+      .catch((err) => console.log(err));
+  }
   render() {
     return <TableList type="MODULE" title={title} data={this.state.data} />;
   }

@@ -28,30 +28,36 @@ const AddNiveau = () => {
   const [filiere, setFiliere] = useState([]);
   const [idFiliere, setIdFiliere] = useState(0);
 
-  useEffect(async () => {
+  useEffect(() => {
     // const data = await axios.get(URL_Filiere);
-    const data = [
-      {
-        id: 1,
-        libelle: "GI",
+    const res = axios({
+      method: "get",
+      url: "http://10.30.238.242:8080/api/filiere/list",
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("token"),
       },
-      {
-        id: 2,
-        libelle: "GE",
-      },
-      {
-        id: 3,
-        libelle: "GRT",
-      },
-    ];
-    setFiliere(data);
+    })
+      .then((res) => {
+        setFiliere(res.data);
+      })
+      .catch((err) => console.log(err));
   }, []);
 
   const onSubmit = (e) => {
     //e.preventDefault();
-    console.log(libelle);
-    console.log(filiere);
-    console.log(idFiliere);
+    const res = axios({
+      method: "post",
+      url: "http://10.30.238.242:8080/api/niveau/",
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+      data: {
+        descNiveau: libelle,
+        filiere: idFiliere.toString(),
+      },
+    })
+      .then((res) => console.log(res.status))
+      .catch((err) => console.log(err.response.data));
   };
   return (
     <div>

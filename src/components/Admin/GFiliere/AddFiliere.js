@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { Form, Input, Button, PageHeader } from "antd";
 //import { PostUsers } from "../../store/actions/usersAction";
-import "../../../style/Admin.css"
+import "../../../style/Admin.css";
+import axios from "axios";
+import Notification from "../../Util/Notification";
 
 const layout = {
   labelCol: {
@@ -26,8 +28,21 @@ const AddFiliere = () => {
   const [libelle, setFiliere] = useState("");
 
   const onSubmit = (e) => {
-    e.preventDefault();
-    console.log(libelle)
+    console.log(libelle);
+    const res = axios({
+      method: "post",
+      url: "http://10.30.238.242:8080/api/filiere/",
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+      data: {
+        libelle: libelle,
+      },
+    })
+      .then((res) => {
+        return <Notification label={libelle} />;
+      })
+      .catch((err) => console.log(err.response.data));
   };
 
   return (
@@ -35,33 +50,32 @@ const AddFiliere = () => {
       <PageHeader
         className="site-page-header"
         title="AJOUTER"
-        subTitle='FILIERE'
+        subTitle="FILIERE"
       />
       <div className="container">
-
-      <Form
-        {...layout}
-        name="nest-messages"
-        onFinish={onSubmit}
-        validateMessages={validateMessages}
-      >
-        <Form.Item
-          label="Filiere"
-          name="filiere"
-          rules={[
-            {
-              required: true,
-            },
-          ]}
+        <Form
+          {...layout}
+          name="nest-messages"
+          onFinish={onSubmit}
+          validateMessages={validateMessages}
         >
-          <Input onChange={(e) => setFiliere(e.target.value)} />
-        </Form.Item>
-        <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 4 }}>
-          <Button type="primary" htmlType="submit">
-            Ajouter
-          </Button>
-        </Form.Item>
-      </Form>
+          <Form.Item
+            label="Filiere"
+            name="filiere"
+            rules={[
+              {
+                required: true,
+              },
+            ]}
+          >
+            <Input onChange={(e) => setFiliere(e.target.value)} />
+          </Form.Item>
+          <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 4 }}>
+            <Button type="primary" htmlType="submit">
+              Ajouter
+            </Button>
+          </Form.Item>
+        </Form>
       </div>
     </div>
   );

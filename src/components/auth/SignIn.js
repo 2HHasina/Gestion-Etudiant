@@ -2,11 +2,23 @@ import React, { Component } from "react";
 import "../../style/Auth.css";
 import { Form, Input, Button } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
+import jwt_decode from "jwt-decode";
+import axios from "axios";
+import { Redirect } from "react-router-dom";
 
 class SignIn extends Component {
   state = {
     email: "",
     password: "",
+  };
+  handleLogin = (res) => {
+    localStorage.setItem("token", res.data);
+    let decode = jwt_decode(localStorage.getItem("token"));
+    console.log(decode);
+    //if(decode.roles[0]==='*')
+    if (decode.roles[0] === "ADMIN") {
+      return <Redirect to="/admin" />;
+    }
   };
 
   handleChange = (e) => {
@@ -14,18 +26,24 @@ class SignIn extends Component {
       [e.target.name]: e.target.value,
     });
   };
-  handleSubmit = () => {
-      console.log(this.state)
-  }
+  handleSubmit = async (e) => {
+    e.preventDefault();
+    const res = await axios({
+      method: "post",
+      url: "http://10.30.238.242:8080/api/users/login",
+      data: this.state,
+    })
+      .then((res) => this.handleLogin(res))
+      .catch((err) => console.log(err.response.data));
+  };
 
   render() {
-
     return (
       <div className="content">
         <Form
           name="normal_login"
-          className="login-form"
-        onFinish={this.handleSubmit}
+          className="login-form formIn"
+          onFinish={this.handleSubmit}
         >
           <div className="icon">
             <i className="fas fa-user-lock"></i>
@@ -55,7 +73,7 @@ class SignIn extends Component {
                 message: "Please input your Password!",
               },
             ]}
-            >
+          >
             <Input
               prefix={<LockOutlined className="site-form-item-icon" />}
               type="password"
@@ -76,7 +94,7 @@ class SignIn extends Component {
             <div className="link">
               Or
               <br />
-              <a href="">Register now!</a>
+              <a href="/signup">Register now!</a>
             </div>
           </Form.Item>
         </Form>

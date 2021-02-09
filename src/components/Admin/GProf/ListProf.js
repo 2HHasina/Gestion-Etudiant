@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import TableList from "../../Util/TableList";
-import { connect } from "react-redux";
-import { GetUsers } from "../../../store/actions/usersAction";
 import axios from "axios";
 import URL from '../../../config/config'
 
@@ -42,6 +40,5 @@ class ListProf extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({ data: state.users });
 
-export default connect(mapStateToProps, { GetUsers })(ListProf);
+export default ListProf;

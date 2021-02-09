@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Form, Input, Button, PageHeader } from "antd";
+import { Form, Input, Button, PageHeader, message } from "antd";
 //import { PostUsers } from "../../store/actions/usersAction";
 import "../../../style/Admin.css";
 import axios from "axios";
@@ -40,10 +40,8 @@ const AddFiliere = () => {
         libelle: libelle,
       },
     })
-      .then((res) => {
-        return <Notification label={libelle} />;
-      })
-      .catch((err) => console.log(err.response.data));
+      .then((res) => message.success("Filiere Added"))
+      .catch((err) => message.error(err.response.data.message));
   };
 
   return (
@@ -82,9 +80,5 @@ const AddFiliere = () => {
   );
 };
 
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     PostUsers: (user) => dispatch(PostUsers(user)),
-//   };
-// };
+
 export default AddFiliere;

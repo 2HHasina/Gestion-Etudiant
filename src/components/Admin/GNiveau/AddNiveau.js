@@ -1,5 +1,5 @@
 import React, { Component, useEffect, useState } from "react";
-import { Form, Input, Button, PageHeader, Select } from "antd";
+import { Form, Input, Button, PageHeader, Select, message } from "antd";
 import "../../../style/Admin.css";
 import axios from "axios";
 import URL from "../../../config/config";
@@ -59,8 +59,8 @@ const AddNiveau = () => {
         filiere: idFiliere.toString(),
       },
     })
-      .then((res) => console.log(res.status))
-      .catch((err) => console.log(err.response.data));
+      .then((res) => message.success("Niveau Added"))
+      .catch((err) => message.error(err.response.data.message));
   };
   return (
     <div>

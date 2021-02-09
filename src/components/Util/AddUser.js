@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Form, Input, Button, PageHeader, Select } from "antd";
+import { Form, Input, Button, PageHeader, Select, message } from "antd";
 import { PostUsers } from "../../store/actions/usersAction";
 import "../../style/Admin.css";
 import axios from "axios";
@@ -42,7 +42,8 @@ const AddUser = (props) => {
           niveau: idNiveau.toString(),
           libelle: semestre,
         },
-      });
+      }).then((res) => message.success("Semestre Added"))
+      .catch((err) => message.error(err.response.data.message));;
     }
     if (type === "USER") {
       axios({
@@ -54,7 +55,8 @@ const AddUser = (props) => {
           idNiveau: idNiveau.toString(),
           role: props.role,
         },
-      });
+      }).then((res) => message.success("User Added"))
+      .catch((err) => message.error(err.response.data.message));;
     }
   };
   useEffect(async () => {

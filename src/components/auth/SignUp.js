@@ -1,7 +1,7 @@
 import React from "react";
 import "antd/dist/antd.css";
 import "../../style/Auth.css";
-import { Form, Input, Button, Radio } from "antd";
+import { Form, Input, Button, Radio, message } from "antd";
 import axios from "axios";
 import { withRouter } from "react-router-dom";
 
@@ -54,7 +54,10 @@ const SignUp = (props) => {
       url: "http://10.30.238.242:8080/api/users/signup",
       data: user,
     })
-      .then((res) => props.history.push("/signin"))
+      .then((res) => {
+        message.success("Success")
+        props.history.push("/signin");
+      })
       .catch((err) => console.log(err.response.data));
   };
 

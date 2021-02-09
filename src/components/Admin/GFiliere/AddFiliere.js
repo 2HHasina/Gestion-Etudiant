@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { Form, Input, Button, PageHeader } from "antd";
+import { Form, Input, Button, PageHeader, message } from "antd";
 //import { PostUsers } from "../../store/actions/usersAction";
 import "../../../style/Admin.css";
 import axios from "axios";
 import Notification from "../../Util/Notification";
+import URL from '../../../config/config'
 
 const layout = {
   labelCol: {
@@ -31,7 +32,7 @@ const AddFiliere = () => {
     console.log(libelle);
     const res = axios({
       method: "post",
-      url: "http://10.30.238.242:8080/api/filiere/",
+      url: `${URL}/api/filiere/`,
       headers: {
         Authorization: "Bearer " + localStorage.getItem("token"),
       },
@@ -39,10 +40,8 @@ const AddFiliere = () => {
         libelle: libelle,
       },
     })
-      .then((res) => {
-        return <Notification label={libelle} />;
-      })
-      .catch((err) => console.log(err.response.data));
+      .then((res) => message.success("Filiere Added"))
+      .catch((err) => message.error(err.response.data.message));
   };
 
   return (

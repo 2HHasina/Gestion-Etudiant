@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Form, Input, Button, PageHeader, Select } from "antd";
+import { Form, Input, Button, PageHeader, Select, message } from "antd";
 import { PostUsers } from "../../store/actions/usersAction";
 import "../../style/Admin.css";
 import axios from "axios";
+import URL from '../../config/config'
 
 const layout = {
   labelCol: {
@@ -35,25 +36,27 @@ const AddUser = (props) => {
     if (type === "SEMESTRE") {
       axios({
         method: "post",
-        url: "http://10.30.238.242:8080/api/semester/",
+        url: `${URL}/api/semester/`,
         headers: { Authorization: "Bearer " + localStorage.getItem("token") },
         data: {
           niveau: idNiveau.toString(),
           libelle: semestre,
         },
-      });
+      }).then((res) => message.success("Semestre Added"))
+      .catch((err) => message.error(err.response.data.message));;
     }
     if (type === "USER") {
       axios({
         method: "post",
-        url: "http://10.30.238.242:8080/api/users/add",
+        url: `${URL}/api/users/add`,
         headers: { Authorization: "Bearer " + localStorage.getItem("token") },
         data: {
           cin: cin,
           idNiveau: idNiveau.toString(),
           role: props.role,
         },
-      });
+      }).then((res) => message.success("User Added"))
+      .catch((err) => message.error(err.response.data.message));;
     }
   };
   useEffect(async () => {

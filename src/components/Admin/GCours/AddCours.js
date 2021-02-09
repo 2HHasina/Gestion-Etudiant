@@ -4,6 +4,7 @@ import { Form, Input, Button, PageHeader, Upload, message, Select } from "antd";
 import { InboxOutlined } from "@ant-design/icons";
 import "../../../style/Admin.css";
 import axios from "axios";
+import URL from "../../../config/config";
 
 const { Dragger } = Upload;
 const dummyRequest = ({ file, onSuccess }) => {
@@ -55,42 +56,48 @@ const AddCours = () => {
   const [libelle, setLibelle] = useState("");
   const [file, setFile] = useState(null);
 
-  const onSubmit =  (e) => {
+  const onSubmit = (e) => {
     const Cours = {
       libelle: libelle,
       Module: idModule,
       file: file,
     };
     let formData = new FormData();
-    formData.append("cours", file);
-    formData.set('')
+    formData.append("content", file);
+    formData.set("libelle", libelle);
+    formData.set("module", idModule.toString());
     const res = axios({
       method: "post",
-      url: "http://localhost:4000/file",
+      url: `${URL}/api/cours`,
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
       data: formData,
-    }).then((res) => res.data);
+    })
+      .then((res) => message.success("Cours added"))
+      .catch((err) => message.error(err.response.data.message));
   };
+
   const onChange = (e) => {
     setFile(e.target.files[0]);
   };
-  useEffect(async () => {
-    // const data = await axios.get(URL_Filiere);
-    const res = axios({
+
+  useEffect(() => {
+    axios({
       method: "get",
-      url: "http://10.30.238.242:8080/api/module/list",
+      url: `${URL}/api/module/list`,
       headers: {
         Authorization: "Bearer " + localStorage.getItem("token"),
       },
     })
       .then((res) => {
-        console.log(res.status)
+        console.log(res.status);
         let tab = [];
-        res.data.map((elm) =>
-          tab.push({ id: elm.id, libelle: elm.libelle })
-        );
+        res.data.map((elm) => tab.push({ id: elm.id, libelle: elm.libelle }));
         setModule(tab);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => message.error(err.response.data.message));
   }, []);
 
   return (
@@ -139,7 +146,7 @@ const AddCours = () => {
           </Form.Item>
           <Form.Item
             name="file"
-            rules={[{ required: true,message:"File is required !" }]}
+            rules={[{ required: true, message: "File is required !" }]}
             wrapperCol={{ ...layout.wrapperCol, offset: 4 }}
           >
             {/*<Dragger
@@ -155,11 +162,7 @@ const AddCours = () => {
                 Click or drag file to this area to upload
               </p>
             </Dragger> */}
-              <input
-                type="file"
-                name="file"
-                onChange={onChange}
-              />
+            <input type="file" name="file" onChange={onChange} />
           </Form.Item>
           <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 4 }}>
             <Button type="primary" htmlType="submit">

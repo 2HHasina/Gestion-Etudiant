@@ -1,27 +1,40 @@
 import React, { Component } from "react";
 import TableList from "../../Util/TableList";
+import URL from '../../../config/config'
+import axios from "axios";
 
-const title = ["ID", "Cours",""];
+const title = ["ID", "Cours"];
 
 class ListCours extends Component {
     state = {
-      data: [
-        {
-          key: "1",
-          id: "1",
-          cours: "Premiere Annee",
-        },
-        {
-          key: "2",
-          id: "2",
-          cours: " 3 eme genie informatique",
-        },
-      ],
+      data: [],
     };
-  componentDidMount() {}
+  componentDidMount() {
+    const res = axios({
+      method: "get",
+      url: `${URL}/api/cours/list`,
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    })
+      .then((res) =>
+        res.data.map((elm) =>
+          this.setState({
+            data: [
+              ...this.state.data,
+              {
+                id: elm.id,
+                cours: elm.libelle
+              },
+            ],
+          })
+        )
+      )
+      .catch((err) => console.log(err));
+  }
 
   render() {
-    return <TableList type="COURS" title={title} data={this.state.data} />;
+    return <TableList url="/api/cours/" type="COURS" title={title} data={this.state.data} />;
   }
 }
 

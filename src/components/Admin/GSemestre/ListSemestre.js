@@ -28,7 +28,7 @@ class ListSemestre extends Component {
       .catch((err) => console.log(err));
   }
   render() {
-    return <TableList type="SEMESTRE" title={title} data={this.state.data} />;
+    return <TableList url="/api/semester/" type="SEMESTRE" title={title} data={this.state.data} />;
   }
 }
 

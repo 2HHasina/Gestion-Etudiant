@@ -19,7 +19,10 @@ class ListNiveau extends Component {
       .then((res) =>
         res.data.map((elm) =>
           this.setState({
-            data: [...this.state.data, { id: elm.id, description: elm.descNiveau }],
+            data: [
+              ...this.state.data,
+              { id: elm.id, description: elm.descNiveau },
+            ],
           })
         )
       )
@@ -27,7 +30,14 @@ class ListNiveau extends Component {
   }
 
   render() {
-    return <TableList type="NIVEAU" title={title} data={this.state.data} />;
+    return (
+      <TableList
+        url="/api/niveau/"
+        type="NIVEAU"
+        title={title}
+        data={this.state.data}
+      />
+    );
   }
 }
 

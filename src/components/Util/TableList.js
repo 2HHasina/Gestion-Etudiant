@@ -1,14 +1,15 @@
 import React, { Component } from "react";
 import "antd/dist/antd.css";
-import { Table, Input, Button, Space } from "antd";
+import { Table, Input, Button, Space, message } from "antd";
 import Highlighter from "react-highlight-words";
 import {
   SearchOutlined,
   DeleteTwoTone,
-  CloudDownloadOutlined,
+  DownloadOutlined,
 } from "@ant-design/icons";
 import { saveAs } from "file-saver";
 import axios from "axios";
+import URL from "../../config/config";
 
 class TableUser extends Component {
   state = {
@@ -112,20 +113,42 @@ class TableUser extends Component {
     this.setState({ searchText: "" });
   };
 
-  handleClick = (key) => {
-    console.log(key);
-  };
-  fileDownload = async () => {
-    return axios
-      .get("https://assets.filestackapi.com/watermark.png", {
-        responseType: "blob",
+  handleClick = (id, type) => {
+    console.log(id);
+    axios({
+      method: "DELETE",
+      url: `${URL}${this.props.url}${id}`,
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    })
+      .then((res) => {
+        message.success(`${type} Deleted`);
+        window.location.reload();
       })
-      .then((response) => {
-        return new Blob([response.body], { type: ".png" });
-      });
+      .catch((err) => err.response.data.message);
   };
+
   handleDownload = (fileName) => {
-    this.fileDownload().then((blob) => saveAs(blob, fileName));
+    console.log(fileName);
+    axios({
+      method: "get",
+      url: `${URL}/api/cours/downloadCours/${fileName}`,
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("token"),
+        
+      },
+      responseType: "arraybuffer",
+      
+    })
+      .then((response) => {
+        let url = window.URL.createObjectURL(new Blob([response.data]));
+        let a = document.createElement("a");
+        a.href = url;
+        a.download = fileName;
+        a.click();
+      })
+      .catch((err) => message.error(err));
   };
   render() {
     const { title, data, type } = this.props;
@@ -148,10 +171,10 @@ class TableUser extends Component {
           render: (record) => {
             return (
               <Button
-                type="primary"
+                type="link"
                 onClick={(e) => this.handleDownload(record.cours)}
               >
-                <CloudDownloadOutlined style={{ fontSize: "20px" }} />
+                <DownloadOutlined style={{ fontSize: "20px" }} />
               </Button>
             );
           },
@@ -165,7 +188,7 @@ class TableUser extends Component {
             <Button
               type="text"
               danger
-              onClick={(e) => this.handleClick(record.key)}
+              onClick={(e) => this.handleClick(record.id, type)}
             >
               <DeleteTwoTone
                 style={{ fontSize: "20px" }}

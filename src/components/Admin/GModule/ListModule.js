@@ -20,14 +20,14 @@ class ListModule extends Component {
       .then((res) =>
         res.data.map((elm) =>
           this.setState({
-            data: [...this.state.data, { id: elm.id, filiere: elm.libelle }],
+            data: [...this.state.data, { id: elm.id, module: elm.libelle }],
           })
         )
       )
       .catch((err) => console.log(err));
   }
   render() {
-    return <TableList type="MODULE" title={title} data={this.state.data} />;
+    return <TableList url="/api/module/" type="MODULE" title={title} data={this.state.data} />;
   }
 }
 

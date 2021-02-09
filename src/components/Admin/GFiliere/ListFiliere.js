@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import TableList from "../../Util/TableList";
 import axios from "axios";
+import URL from "../../../config/config";
 
 const title = ["ID", "Filiere"];
 
@@ -8,10 +9,11 @@ class ListFiliere extends Component {
   state = {
     data: [],
   };
-  componentDidMount() {
+
+  fetchData = () => {
     const res = axios({
       method: "get",
-      url: "http://10.30.238.242:8080/api/filiere/list",
+      url: `${URL}/api/filiere/list`,
       headers: {
         Authorization: "Bearer " + localStorage.getItem("token"),
       },
@@ -24,10 +26,21 @@ class ListFiliere extends Component {
         )
       )
       .catch((err) => console.log(err));
+  };
+  componentDidMount() {
+    this.fetchData();
   }
 
   render() {
-    return <TableList type="FILIERE" title={title} data={this.state.data} />;
+    return (
+      <TableList
+        fetchData={this.fetchData}
+        url="/api/filiere/"
+        type="FILIERE"
+        title={title}
+        data={this.state.data}
+      />
+    );
   }
 }
 

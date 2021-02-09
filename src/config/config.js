@@ -1,2 +1,2 @@
 
-export default  URL = 'http://10.30.238.242:8080'
+export default  URL = 'http://192.168.43.12:8080'

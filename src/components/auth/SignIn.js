@@ -5,6 +5,7 @@ import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import jwt_decode from "jwt-decode";
 import axios from "axios";
 import { Redirect, withRouter } from "react-router-dom";
+import URL from '../../config/config'
 
 class SignIn extends Component {
   state = {
@@ -30,7 +31,7 @@ class SignIn extends Component {
     console.log(this.state)
     const res = await axios({
       method: "post",
-      url: "http://10.30.238.242:8080/api/users/login",
+      url: `${URL}/api/users/login`,
       data: {
         email: this.state.email,
         password: this.state.password

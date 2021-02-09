@@ -4,6 +4,7 @@ import "../../style/Auth.css";
 import { Form, Input, Button, Radio } from "antd";
 import axios from "axios";
 import { withRouter } from "react-router-dom";
+import URL from '../../config/config'
 
 const formItemLayout = {
   labelCol: {
@@ -39,7 +40,7 @@ const tailFormItemLayout = {
 const SignUp = (props) => {
   const [form] = Form.useForm();
 
-  const onFinish = async (values) => {
+  const onFinish =  (values) => {
     console.log("Received values of form: ", values);
     const user = {
       cin: values.cin,
@@ -49,9 +50,9 @@ const SignUp = (props) => {
       password: values.password,
       role: values.role,
     };
-    const res = await axios({
+    const res =  axios({
       method: "post",
-      url: "http://10.30.238.242:8080/api/users/signup",
+      url: `${URL}/api/users/signup`,
       data: user,
     })
       .then((res) => props.history.push("/signin"))

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import TableList from "../../Util/TableList";
 import axios from "axios";
+import URL from '../../../config/config'
 
 const title = ["ID", "Semestre"];
 
@@ -13,7 +14,7 @@ class ListSemestre extends Component {
   componentDidMount() {
     const res = axios({
       method: "get",
-      url: "http://10.30.238.242:8080/api/semester/list",
+      url: `${URL}/api/semester/list`,
       headers: {
         Authorization: "Bearer " + localStorage.getItem("token"),
       },

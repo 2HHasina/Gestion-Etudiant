@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import TableList from "../../Util/TableList";
 import axios from "axios";
+import URL from "../../../config/config";
 
 const title = ["ID", "Description"];
 
@@ -11,7 +12,7 @@ class ListNiveau extends Component {
   componentDidMount() {
     const res = axios({
       method: "get",
-      url: "http://10.30.238.242:8080/api/niveau/list",
+      url: `${URL}/api/niveau/list`,
       headers: {
         Authorization: "Bearer " + localStorage.getItem("token"),
       },

@@ -3,6 +3,7 @@ import TableList from "../../Util/TableList";
 import { connect } from "react-redux";
 import { GetUsers } from "../../../store/actions/usersAction";
 import axios from "axios";
+import URL from '../../../config/config'
 
 const title = ["CIN", "Nom", "Prenom", "Email"];
 
@@ -13,7 +14,7 @@ class ListProf extends Component {
   componentDidMount() {
     const res = axios({
       method: "get",
-      url: "http://10.30.238.242:8080/api/users/list/PROF",
+      url: `${URL}/api/users/list/PROF`,
       headers: {
         Authorization: "Bearer " + localStorage.getItem("token"),
       },

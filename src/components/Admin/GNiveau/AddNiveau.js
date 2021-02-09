@@ -2,6 +2,7 @@ import React, { Component, useEffect, useState } from "react";
 import { Form, Input, Button, PageHeader, Select } from "antd";
 import "../../../style/Admin.css";
 import axios from "axios";
+import URL from "../../../config/config";
 
 const { Option } = Select;
 const layout = {
@@ -32,7 +33,7 @@ const AddNiveau = () => {
     // const data = await axios.get(URL_Filiere);
     const res = axios({
       method: "get",
-      url: "http://10.30.238.242:8080/api/filiere/list",
+      url: `${URL}/api/filiere/list`,
       headers: {
         Authorization: "Bearer " + localStorage.getItem("token"),
       },
@@ -49,7 +50,7 @@ const AddNiveau = () => {
     console.log(idFiliere);
     const res = axios({
       method: "post",
-      url: "http://10.30.238.242:8080/api/niveau/",
+      url: `${URL}/api/niveau/`,
       headers: {
         Authorization: "Bearer " + localStorage.getItem("token"),
       },

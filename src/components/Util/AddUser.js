@@ -3,6 +3,7 @@ import { Form, Input, Button, PageHeader, Select } from "antd";
 import { PostUsers } from "../../store/actions/usersAction";
 import "../../style/Admin.css";
 import axios from "axios";
+import URL from '../../config/config'
 
 const layout = {
   labelCol: {
@@ -35,7 +36,7 @@ const AddUser = (props) => {
     if (type === "SEMESTRE") {
       axios({
         method: "post",
-        url: "http://10.30.238.242:8080/api/semester/",
+        url: `${URL}/api/semester/`,
         headers: { Authorization: "Bearer " + localStorage.getItem("token") },
         data: {
           niveau: idNiveau.toString(),
@@ -46,7 +47,7 @@ const AddUser = (props) => {
     if (type === "USER") {
       axios({
         method: "post",
-        url: "http://10.30.238.242:8080/api/users/add",
+        url: `${URL}/api/users/add`,
         headers: { Authorization: "Bearer " + localStorage.getItem("token") },
         data: {
           cin: cin,
@@ -59,7 +60,7 @@ const AddUser = (props) => {
   useEffect(async () => {
     const res = axios({
       method: "get",
-      url: "http://10.30.238.242:8080/api/niveau/list",
+      url: `${URL}/api/niveau/list`,
       headers: {
         Authorization: "Bearer " + localStorage.getItem("token"),
       },

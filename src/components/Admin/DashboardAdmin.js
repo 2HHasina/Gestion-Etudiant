@@ -9,6 +9,7 @@ import {
   SettingOutlined,
   BookOutlined,
   SolutionOutlined,
+  LogoutOutlined
 } from "@ant-design/icons";
 import SubMenu from "antd/lib/menu/SubMenu";
 import { Link } from "react-router-dom";
@@ -110,6 +111,9 @@ class DashboardAdmin extends React.Component {
                   <Link to="/admin/listService">Liste des Service</Link>
                 </Menu.Item>
               </SubMenu>
+              <Menu.Item key="16" icon={<LogoutOutlined />} onClick={()=> localStorage.removeItem('token')}>
+              <Link to="/">Log Out</Link>
+            </Menu.Item>
             </Menu>
           </Sider>
           <Layout className="site-layout">

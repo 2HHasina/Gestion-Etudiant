@@ -1,11 +1,10 @@
 import React, { Component } from "react";
+import ListCours from '../Admin/GCours/ListCours'
 
 class Home extends Component {
   render() {
     return (
-      <div>
-        <p>Home</p>
-      </div>
+      <ListCours />
     );
   }
 }

@@ -62,7 +62,7 @@ const AddUser = (props) => {
   useEffect(async () => {
     const res = axios({
       method: "get",
-      url: "http://10.30.238.242:8080/api/niveau/list",
+      url: `${URL}/api/niveau/list`,
       headers: {
         Authorization: "Bearer " + localStorage.getItem("token"),
       },

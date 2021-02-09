@@ -5,7 +5,7 @@ import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import DashboardAdmin from "./components/Admin/DashboardAdmin";
 import DashboardStudent from "./components/Etudiant/DashboardStudent";
 import PrivateRoute from "./components/Util/PrivateRoute";
-
+import Forbidden from './components/Util/Forbidden'
 function App() {
   return (
     <BrowserRouter>
@@ -21,6 +21,7 @@ function App() {
           component={DashboardStudent}
           Role="STUDENT"
         />
+        <Route path='/forbidden' component={Forbidden}/>
       </Switch>
     </BrowserRouter>
   );

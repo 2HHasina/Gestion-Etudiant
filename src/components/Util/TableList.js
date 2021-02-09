@@ -6,6 +6,8 @@ import {
   SearchOutlined,
   DeleteTwoTone,
   DownloadOutlined,
+  CheckCircleTwoTone,
+  CloseCircleTwoTone
 } from "@ant-design/icons";
 import { saveAs } from "file-saver";
 import axios from "axios";
@@ -115,20 +117,55 @@ class TableUser extends Component {
 
   handleClick = (id, type) => {
     console.log(id);
+    if(this.props.url){
+      axios({
+        method: "DELETE",
+        url: `${URL}${this.props.url}${id}`,
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      })
+        .then((res) => {
+          message.success(`${type} Deleted`);
+          window.location.reload();
+        })
+        .catch((err) => err.response.data.message);
+    }
+    if(type==='SERVICE'){
+      axios({
+        method: "put",
+        url: `${URL}/api/service/${id}`,
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+        data:{
+          status: "Acceptee"
+        }
+      })
+        .then((res) => {
+          message.success(`${type} Traited`);
+          window.location.reload();
+        })
+        .catch((err) => err.response.data.message);
+    }
+  };
+
+  handleRefuse = (id, type)=>{
     axios({
-      method: "DELETE",
-      url: `${URL}${this.props.url}${id}`,
+      method: "put",
+      url: `${URL}/api/service/${id}`,
       headers: {
         Authorization: "Bearer " + localStorage.getItem("token"),
       },
+      data:{
+        status: "Refuse"
+      }
     })
       .then((res) => {
-        message.success(`${type} Deleted`);
-        window.location.reload();
+        message.success(`${type} Traited`);
       })
       .catch((err) => err.response.data.message);
-  };
-
+  }
   handleDownload = (fileName) => {
     console.log(fileName);
     axios({
@@ -136,20 +173,19 @@ class TableUser extends Component {
       url: `${URL}/api/cours/downloadCours/${fileName}`,
       headers: {
         Authorization: "Bearer " + localStorage.getItem("token"),
-        
-      },
-      responseType: "arraybuffer",
-      
+      }
     })
       .then((response) => {
-        let url = window.URL.createObjectURL(new Blob([response.data]));
-        let a = document.createElement("a");
+        console.log(response)
+        response.blob().then(blob => {
+        let url = window.URL.createObjectURL(new Blob[blob]);
+        let a = document.createElement('a');
         a.href = url;
         a.download = fileName;
         a.click();
       })
       .catch((err) => message.error(err));
-  };
+  })}
   render() {
     const { title, data, type } = this.props;
     const columns = () => {
@@ -179,11 +215,31 @@ class TableUser extends Component {
             );
           },
         });
+      if((localStorage.getItem('role')==='ADMIN' && type !== 'USER')|| 
+      (localStorage.getItem('role')==='STUDENT' && type==='SERVICE'))
       columns.push({
         title: "Action",
         dataIndex: "",
         key: "x",
         render: (record) => {
+          if(type==='SERVICE' && localStorage.getItem('role')==='ADMIN')
+            return (
+              <div>
+                  <Button
+                  type="text"
+                  onClick={(e) => this.handleClick(record.id, type)}
+                >
+                  <CheckCircleTwoTone twoToneColor="#52c41a" />
+                </Button>
+                <Button
+                type="text"
+                
+                onClick={(e) => this.handleRefuse(record.id, type)}
+              >
+                <CloseCircleTwoTone twoToneColor="#eb2f96"/>
+              </Button>
+              </div>
+            )
           return (
             <Button
               type="text"
@@ -200,8 +256,7 @@ class TableUser extends Component {
       });
       return columns;
     };
-    console.log(columns());
-    console.log(data);
+
     return <Table columns={columns()} dataSource={data} />;
   }
 }

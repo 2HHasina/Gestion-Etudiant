@@ -13,7 +13,7 @@ class ListSemestre extends Component {
   componentDidMount() {
     const res = axios({
       method: "get",
-      url: "http://10.30.238.242:8080/api/semester/list",
+      url: `${URL}/api/semester/list`,
       headers: {
         Authorization: "Bearer " + localStorage.getItem("token"),
       },

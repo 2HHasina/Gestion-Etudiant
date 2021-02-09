@@ -9,10 +9,7 @@ import {
   LogoutOutlined,
   SolutionOutlined,
 } from "@ant-design/icons";
-import { Link, Switch, Route, Redirect } from "react-router-dom";
-import Home from "./Home";
-import Reporting from "./Reporting";
-import Service from "./Service";
+import { Link} from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import RoutesStudent from "./RoutesStudent";
 

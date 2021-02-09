@@ -16,11 +16,8 @@ import ListModule from "./GModule/ListModule";
 import ListService from "./GService/ListService";
 import ListCours from "./GCours/ListCours";
 import AddCours from "./GCours/AddCours";
-import jwt_decode from 'jwt-decode'
 
 const Routes = () => {
-  let decode = jwt_decode(localStorage.getItem("token"));
-  if (true) {
     return (
       <Switch>
         <Route exact path="/admin" component={Main} />
@@ -41,9 +38,6 @@ const Routes = () => {
         <Route path="/admin/listService" component={ListService} />
       </Switch>
     );
-  } else {
-    return null;
-  }
-};
+  } 
 
 export default Routes;

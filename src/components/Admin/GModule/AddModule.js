@@ -2,6 +2,8 @@ import React, { Component, useEffect, useState } from "react";
 import { Form, Input, Button, PageHeader, Select } from "antd";
 import "../../../style/Admin.css";
 import axios from "axios";
+import URL from '../../../config/config'
+
 
 const { Option } = Select;
 const layout = {
@@ -34,7 +36,7 @@ const AddModule = () => {
 
     axios({
       method: "get",
-      url: "http://10.30.238.242:8080/api/semester/list",
+      url: `${URL}/api/semester/list`,
       headers: {
         Authorization: "Bearer " + localStorage.getItem("token"),
       },
@@ -48,7 +50,7 @@ const AddModule = () => {
       .catch((err) => console.log(err));
     axios({
       method: "get",
-      url: "http://10.30.238.242:8080/api/users/list/PROF",
+      url: `${URL}/api/users/list/PROF`,
       headers: {
         Authorization: "Bearer " + localStorage.getItem("token"),
       },
@@ -67,7 +69,7 @@ const AddModule = () => {
   const onSubmit = (e) => {
     axios({
       method: "post",
-      url: "http://10.30.238.242:8080/api/module/",
+      url: `${URL}/api/module/`,
       headers: { Authorization: "Bearer " + localStorage.getItem("token") },
       data: {
         libelle: libelle,

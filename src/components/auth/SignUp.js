@@ -4,6 +4,7 @@ import "../../style/Auth.css";
 import { Form, Input, Button, Radio, message } from "antd";
 import axios from "axios";
 import { withRouter } from "react-router-dom";
+import URL from '../../config/config'
 
 const formItemLayout = {
   labelCol: {
@@ -51,7 +52,7 @@ const SignUp = (props) => {
     };
     const res = await axios({
       method: "post",
-      url: "http://10.30.238.242:8080/api/users/signup",
+      url: `${URL}/api/users/signup`,
       data: user,
     })
       .then((res) => {

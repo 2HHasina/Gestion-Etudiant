@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import TableList from "../../Util/TableList";
+import URL from '../../../config/config'
 
 import axios from "axios";
 
@@ -12,7 +13,7 @@ class ListEtudiant extends Component {
   componentDidMount() {
     const res = axios({
       method: "get",
-      url: "http://10.30.238.242:8080/api/users/list/STUDENT",
+      url: `${URL}/api/users/list/STUDENT`,
       headers: {
         Authorization: "Bearer " + localStorage.getItem("token"),
       },

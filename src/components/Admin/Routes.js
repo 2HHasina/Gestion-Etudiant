@@ -20,7 +20,7 @@ const Routes = () => {
     return (
       <Switch>
         <Route exact path="/admin">
-          <Redirect to='/admin/listEtd'/>
+          <Redirect to='/admin/listService'/>
         </Route>
         <Route path="/admin/listEtd" component={ListEtudiant} />
         <Route path="/admin/ajoutEtd" component={AddEtudiant} />

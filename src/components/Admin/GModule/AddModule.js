@@ -1,5 +1,5 @@
 import React, { Component, useEffect, useState } from "react";
-import { Form, Input, Button, PageHeader, Select } from "antd";
+import { Form, Input, Button, PageHeader, Select,message } from "antd";
 import "../../../style/Admin.css";
 import axios from "axios";
 import URL from "../../../config/config";
@@ -75,7 +75,8 @@ const AddModule = () => {
         semester: idSem.toString(),
         prof: idProf.toString()
       },
-    });
+    }) .then((res) => message.success("Cours added"))
+    .catch((err) => message.error(err.response.data.message));
   };
   return (
     <div>

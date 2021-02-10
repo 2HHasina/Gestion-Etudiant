@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import TableList from "../../Util/TableList";
 import URL from '../../../config/config'
 import axios from "axios";
+import {PageHeader} from 'antd'
 
 const title = ["ID", "Cours"];
 
@@ -34,7 +35,15 @@ class ListCours extends Component {
   }
 
   render() {
-    return <TableList url="/api/cours/" type="COURS" title={title} data={this.state.data} />;
+    return <>
+    <PageHeader
+        className="site-page-header"
+        title="Liste du cours "
+        subTitle=""
+      />
+ <TableList url="/api/cours/" type="COURS" title={title} data={this.state.data} />;
+      </>
+   
   }
 }
 

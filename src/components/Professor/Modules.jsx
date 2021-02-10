@@ -3,6 +3,7 @@ import jwt_decode from "jwt-decode";
 import URL from '../../config/config'
 import axios from "axios";
 import TableList from '../Util/TableList'
+import {PageHeader} from 'antd'
 
 const title = ["Module", "Semestre", "Niveau", "Filiere"];
 class Modules extends Component{
@@ -40,7 +41,15 @@ class Modules extends Component{
     }
 
     render(){
-        return <TableList title={title} data={this.state.data} />
+        return  <>
+        <PageHeader
+        className="site-page-header"
+        title="Liste du modules "
+        subTitle="enseigné par le prof"
+      /> 
+        <TableList title={title} data={this.state.data} />
+        </>
+       
     }
 }
 

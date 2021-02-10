@@ -39,7 +39,12 @@ class DashboardAdmin extends React.Component {
               <i class="fas fa-home fa-2x"></i>
               {this.state.collapsed ? "" : "ADMIN"}
             </div>
-            <Menu theme="dark" mode="inline" defaultSelectedKeys={["1"]}>
+            <Menu theme="dark" mode="inline" defaultSelectedKeys={["15"]}>
+            <SubMenu icon={<SolutionOutlined />} key="sub7" title="SERVICE">
+                <Menu.Item key="15">
+                  <Link to="/admin/listService">Liste des Service</Link>
+                </Menu.Item>
+              </SubMenu>
               <SubMenu
                 key="sub1"
                 icon={<UsergroupAddOutlined />}
@@ -106,11 +111,7 @@ class DashboardAdmin extends React.Component {
                   <Link to="/admin/ajoutCours">Ajouter Cours</Link>
                 </Menu.Item>
               </SubMenu>
-              <SubMenu icon={<SolutionOutlined />} key="sub7" title="SERVICE">
-                <Menu.Item key="15">
-                  <Link to="/admin/listService">Liste des Service</Link>
-                </Menu.Item>
-              </SubMenu>
+              
               <Menu.Item key="16" icon={<LogoutOutlined />} onClick={()=> localStorage.removeItem('token')}>
               <Link to="/">Log Out</Link>
             </Menu.Item>
@@ -131,7 +132,7 @@ class DashboardAdmin extends React.Component {
               style={{
                 margin: "24px 16px",
                 padding: 24,
-                minHeight: 280,
+                minHeight: 500,
               }}
             >
               <Routes />

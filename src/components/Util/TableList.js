@@ -131,7 +131,7 @@ class TableUser extends Component {
         })
         .catch((err) => err.response.data.message);
     }
-    if(type==='SERVICE'){
+    if(type==='SERVICE' && localStorage.getItem("role")=="ADMIN"){
       axios({
         method: "put",
         url: `${URL}/api/service/${id}`,

@@ -29,7 +29,9 @@ class DashboardStudent extends Component {
     const decode = jwt_decode(localStorage.getItem("token"));
     return (
       <Layout>
-        <Sider trigger={null} collapsible collapsed={this.state.collapsed}>
+        <Sider 
+        
+         trigger={null} collapsible collapsed={this.state.collapsed}>
           <div className="logo">
             <i class="fas fa-home fa-2x"></i>
             {this.state.collapsed ? "" : "STUDENT"}

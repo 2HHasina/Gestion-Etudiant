@@ -30,7 +30,10 @@ const Dashboard = ()=>{
         <Layout  >
             <Sider
             trigger={null} collapsible collapsed={collapsed}>
-                <div className="logo" />
+                <div className="logo">
+              <i class="fas fa-home fa-2x"></i>
+              {collapsed ? "" : "PROF"}
+            </div>
     
                 <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
                 <Menu.Item key="1" icon={<UserOutlined />}>

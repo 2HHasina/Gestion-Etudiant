@@ -19,18 +19,21 @@ class ListService extends Component {
       },
     })
       .then((res) =>
-        res.data.map((elm) =>
-          this.setState({
-            data: [
-              ...this.state.data,
-              {
-                id: elm.id,
-                service: elm.libelle,
-                
-              },
-            ],
-          })
-        )
+        res.data.map((elm) =>{
+
+          if(elm.status==="En cours de traitement")
+            this.setState({
+              data: [
+                ...this.state.data,
+                {
+                  id: elm.id,
+                  service: elm.libelle,
+                  
+                },
+              ],
+            })}
+          )
+        
       )
       .catch((err) => console.log(err));
   }

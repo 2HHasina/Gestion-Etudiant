@@ -37,18 +37,18 @@ const Service = () => {
       },
     })
       .then((res) =>
-        res.data.map((elm) =>
-          setData(data=>[
-              ...data,
-              {
-                id: elm.id,
-                service: elm.libelle,
-                etat: elm.status,
-              },
-            ])
-        )
-      )
-      .catch((err) => console.log(err));
+        res.data.map((elm) =>{
+            setData(data=>[
+                ...data,
+                {
+                  id: elm.id,
+                  service: elm.libelle,
+                  etat: elm.status,
+                },
+              ])
+        }
+      ))
+      .catch((err) => console.log(err))
     
   }
 
@@ -77,6 +77,7 @@ const Service = () => {
   useEffect(() => {
     let decode = jwt_decode(localStorage.getItem('token'))
     getData(decode)
+    console.log(data)
   }, [])
   return (
     <div>
@@ -136,7 +137,7 @@ const Service = () => {
             </Form>
           </Col>
           <Col span={12}>
-                <TableList type="SERVICE" title={title} data={data}/>
+                <TableList url="/api/service/" type="SERVICE" title={title} data={data}/>
           </Col>
         </Row>
       </div>

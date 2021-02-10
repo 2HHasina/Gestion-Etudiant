@@ -41,6 +41,17 @@ class SignIn extends Component {
       .catch((err) => message.error(err.response.data.message));
   };
 
+  componentDidMount(){
+    const token = localStorage.getItem("token")
+    
+
+    if(token){
+      let decode = jwt_decode(token);
+    localStorage.setItem("role", decode.roles[0]);
+    if (decode.roles[0] === "ADMIN") this.props.history.push("/admin");
+    if (decode.roles[0] === "PROF") this.props.history.push("/prof");
+    if (decode.roles[0] === "STUDENT") this.props.history.push("/student");}
+  }
   render() {
     return (
       <div className="content">

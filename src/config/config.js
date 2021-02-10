@@ -1,2 +1,2 @@
 
-export default  URL = 'http://192.168.43.12:8080'
+export default  URL = 'http://localhost:8080'

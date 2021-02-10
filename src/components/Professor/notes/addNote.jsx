@@ -1,9 +1,9 @@
 import React,{useState,useEffect} from 'react'
-import {Form,  Button, Select, message,PageHeader, InputNumber} from 'antd';
+import {Form, Button, Select, message,PageHeader, InputNumber} from 'antd';
 import jwt_decode from "jwt-decode";
 import URL from '../../../config/config'
 import axios from "axios";
-import TableList from '../../Util/TableList'
+
 
 
 const layout = {
@@ -39,7 +39,7 @@ const layout = {
     },
   };
 
-export const AddAbs = ()=>{
+export const AddNote = ()=>{
 
 
     const [form] = Form.useForm();
@@ -87,18 +87,18 @@ export const AddAbs = ()=>{
         
       axios({
         method: "post",
-        url: `${URL}/api/absence/`,
+        url: `${URL}/api/note/`,
         headers: {
           Authorization: "Bearer " + localStorage.getItem("token"),
         },
         data: {
           module: values.module,
           student:values.etudiant,
-          nbAbs:values.nombre
+          note:values.note
         },
       })
         .then((res) => {
-         message.success("nombre d'absence ajouté")
+         message.success("Note ajouté")
         })
         .catch((err) => {message.error('error occured please try again')});
     }
@@ -107,8 +107,8 @@ export const AddAbs = ()=>{
         <div>
             <PageHeader
         className="site-page-header"
-        title="Marquer l'absence"
-        subTitle="pour chaque etudiant"
+        title="Saisir la note"
+        subTitle="de chaque etudiant"
       /> 
       <div className="container">
         <Form
@@ -157,8 +157,8 @@ export const AddAbs = ()=>{
             />
           </Form.Item>
               <Form.Item
-              label="Nombre de seance absenté "
-              name="nombre"
+              label="Note "
+              name="note"
               rules={[
                 {
                   required: true,
@@ -171,7 +171,7 @@ export const AddAbs = ()=>{
 
 <Form.Item {...tailFormItemLayout}>
           <Button type="primary" htmlType="submit">
-            Valider
+           Ajouter note
           </Button>
         </Form.Item>     
         </Form>

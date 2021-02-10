@@ -1,6 +1,5 @@
 import React from "react";
-import { Switch, Route } from "react-router-dom";
-import Main from "./Main";
+import { Switch, Route, Redirect } from "react-router-dom";
 import AddEtudiant from "./GEtudiant/AddEtudiant";
 import ListEtudiant from "./GEtudiant/ListEtudiant";
 import AddProf from "./GProf/AddProf";
@@ -20,7 +19,9 @@ import AddCours from "./GCours/AddCours";
 const Routes = () => {
     return (
       <Switch>
-        <Route exact path="/admin" component={Main} />
+        <Route exact path="/admin">
+          <Redirect to='/admin/listEtd'/>
+        </Route>
         <Route path="/admin/listEtd" component={ListEtudiant} />
         <Route path="/admin/ajoutEtd" component={AddEtudiant} />
         <Route path="/admin/ajoutProf" component={AddProf} />

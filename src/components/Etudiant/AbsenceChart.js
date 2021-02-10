@@ -4,10 +4,11 @@ import Chart from "react-apexcharts";
 class AbsenceChart extends Component {
   constructor(props) {
     super(props);
+  }
 
-    this.state = {
-      series: [5, 3, 5, 90],
-      options: {
+  render() {
+    const series = this.props.absence
+      const options= {
         chart: {
           height: 390,
           type: "radialBar",
@@ -34,7 +35,7 @@ class AbsenceChart extends Component {
           },
         },
         colors: ["#1ab7ea", "#0084ff", "#39539E", "#0077B5"],
-        labels: ["GL", "JEE", "Management", "Securite"],
+        labels: this.props.module,
         legend: {
           show: true,
           floating: true,
@@ -65,19 +66,12 @@ class AbsenceChart extends Component {
             },
           },
         ],
-      },
-    };
-  }
-
-  componentDidMount(){
-      
-  }
-  render() {
+      }
     return (
       <div id="chart">
         <Chart
-          options={this.state.options}
-          series={this.state.series}
+          options={options}
+          series={series}
           type="radialBar"
           height={390}
         />

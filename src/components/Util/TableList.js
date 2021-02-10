@@ -173,7 +173,7 @@ class TableUser extends Component {
       url: `${URL}/api/cours/downloadCours/${fileName}`,
       headers: {
         Authorization: "Bearer " + localStorage.getItem("token"),
-      }
+      },
     })
       .then((response) => {
         console.log(response)
